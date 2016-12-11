@@ -28,6 +28,6 @@ mvn clean install
 
 Improvements can be done and pending
 -----------------------------------------
-Used jdk1.8 , currently have 1.7 on the machine using
+Use of jdk1.8 , currently have 1.7 on the machine using
 Improved testing to test more scenarios
 To make production deployment ready
