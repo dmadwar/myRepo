@@ -31,7 +31,8 @@ public class ShopDetailsController {
 	@Autowired
 	ShopService shopService;
 	
-	
+	@Autowired
+	GeoService geoService;
 	
 	/**
 	 * Will create the shop details.
@@ -43,6 +44,16 @@ public class ShopDetailsController {
 			produces=MediaType.APPLICATION_JSON,
 			method=RequestMethod.POST)
 	public ShopDetails createShopDetails(@RequestBody ShopDetails shopDetails) throws CustomException{
+		try{
+			GoogleGeoCode geoCode=geoService.getGeoCode(shopDetails.getShopAddress().getPostCode(), Boolean.FALSE);
+			if(geoCode!=null && geoCode.getResults()!=null){
+				GoogleGeoResult[] geoResult=geoCode.getResults();
+				shopDetails.setShopLatitude(geoResult[0].getGeometry().getLocation().getLat());
+				shopDetails.setShopLongitude(geoResult[0].getGeometry().getLocation().getLng()); 
+			}
+		}catch(Exception ex){
+			throw new CustomException("Not able to locate shop longitude and latitude");
+		}
 		return shopService.createShopDetails(shopDetails);
 		
 	}
