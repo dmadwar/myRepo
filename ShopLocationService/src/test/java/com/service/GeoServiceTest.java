@@ -24,7 +24,7 @@ public class GeoServiceTest {
 	/** As ssl requires API Key this call should fail*/
 	@Test(expected=Exception.class)
     public void getGeoCodeWithSSL() throws Exception{
-		GoogleGeoCode geoCode=geoService.getGeoCode("TW136AY", Boolean.TRUE);	
+		geoService.getGeoCode("TW136AY", Boolean.TRUE);	
 	}
 	
 }
